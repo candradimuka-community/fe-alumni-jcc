@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+    overflow: overlay;
+}
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+*::-webkit-scrollbar-track {
+    @apply fixed bg-transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    @apply rounded-md bg-primary-green;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
+}
