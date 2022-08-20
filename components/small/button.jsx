@@ -14,7 +14,7 @@ const Button = ({
         </Link>
     }
     return (
-        <button className={`bg-primary-${variant} p-4 rounded-md ${className}`} onClick={onClick}>
+        <button className={`${ variant === 'yellow' ? 'bg-primary-yellow' : variant === 'green' ? 'bg-primary-green' : 'bg-primary-blue' } p-4 rounded-md ${className}`} onClick={onClick}>
             {children}
         </button>
     )

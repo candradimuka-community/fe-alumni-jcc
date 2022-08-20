@@ -11,7 +11,8 @@ const Hero = () => {
                         <p className="text-[14px] pt-6 text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Velit aliquam non ac sed enim. Ut ut laoreet malesuada tellus adipiscing. Consequat suspendisse diam bibendum gravida mi, diam elit, pretium. Duis non laoreet eget auctor ornare euismod duis auctor.</p>
                     </div>
                     <Button
-                    className="mt-12">
+                    className="mt-12"
+                    variant="yellow">
                         <p className="flex justify-between items-center gap-4 font-semibold">
                             <span>See Our Work</span>
                             <ChevronRightIcon className="w-5 h-5"/>
