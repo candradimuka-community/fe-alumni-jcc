@@ -18,5 +18,5 @@ body {
 }
 
 *::-webkit-scrollbar-thumb:hover {
-    background: #c0a0b9;
+    @apply bg-primary-blue;
 }
