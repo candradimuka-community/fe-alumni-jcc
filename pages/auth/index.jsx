@@ -10,7 +10,7 @@ const auth = () => {
             <div className="bg-slate-600/50 w-full h-full pt-[150px] ">
                 <div className="container mx-auto px-2">
                     <div className="w-full">
-                        <div className="bg-slate-300 w-1/2 p-8 mx-auto rounded-3xl">
+                        <div className="bg-slate-300 w-4/5 md:w-1/2 p-8 mx-auto rounded-3xl">
                             <p className="text-3xl">Login To Your Account</p>
                             <hr className="mb-8"/>
                             <Input 
