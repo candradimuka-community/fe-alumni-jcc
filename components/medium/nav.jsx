@@ -20,19 +20,19 @@ const Nav = () => {
     const [navigation, setNavigation] = useState([
         {
             key: 'Home',
-            url: ''
+            url: '/'
         },
         {
             key: 'Member',
-            url: ''
+            url: '/member'
         },
         {
             key: 'About Us',
-            url: ''
+            url: '/about-us'
         },
         {
             key: 'Login',
-            url: ''
+            url: '/auth'
         }
     ])
     useEffect(()=>{
