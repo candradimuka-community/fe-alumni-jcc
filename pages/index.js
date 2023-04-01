@@ -4,19 +4,18 @@ import Goal from "../components/large/goal"
 import Hero from "../components/large/hero"
 import Instagram from "../components/large/instagram"
 import Reel from "../components/large/reel"
-import Nav from "../components/medium/nav"
+import MainLayout from "../layout/mainlayout"
 
 const Index = () => {
   return (
-    <>
-      <Nav />
+    <MainLayout>
       <Hero />
       <Goal />
       {/* <About /> */}
       {/* <Reel /> */}
       <Blog />
       <Instagram />
-    </>
+    </MainLayout>
   )
 }
 export default Index
