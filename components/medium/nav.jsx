@@ -19,11 +19,11 @@ const Nav = () => {
     const [scroll, setScroll] = useState(false)
     const [navigation, setNavigation] = useState([
         {
-            key: 'Work',
+            key: 'Home',
             url: ''
         },
         {
-            key: 'Divisions',
+            key: 'Member',
             url: ''
         },
         {
@@ -31,11 +31,7 @@ const Nav = () => {
             url: ''
         },
         {
-            key: 'Free Resources',
-            url: ''
-        },
-        {
-            key: 'Contact Us',
+            key: 'Login',
             url: ''
         }
     ])
@@ -48,7 +44,7 @@ const Nav = () => {
     },[])
     return (
         <div className={`w-full fixed top-0 bg-transparent backdrop-blur-[1px] z-40`}>
-            <div className="container mx-auto p-2 md:py-[32px] flex justify-between items-center relative">
+            <div className="container mx-auto p-2 md:pt-[10px] flex justify-between items-center relative">
                 <div className="bg-slate-200 w-[50px] h-[50px] md:w-[100px] md:h-[100px] rounded-full overflow-hidden">
                     <Image src={'https://s3-alpha-sig.figma.com/img/ef57/4b10/95152edb973c74e75ba9f47251c1e5a5?Expires=1661731200&Signature=KUvZbsbqYfG7RzIWPyPNsn3H-QC0wGn6nUyoxC044zOFcOi7A3gzQXxpuxcauIrLV7CvKfSf~7sKXe0MecHUHTO4lWmbK68H46YfNWlFEdWKhYZejUQrNjzKd4~IRCQKObKgqLabBvHOAIMXj1V3RW8hPMHVrYW0boeFwna4MGvmWFbA6yWUHfodpfp9yVtLQb5qJGaHRNyba-Q7eT-o1tzPPfF1IYNp5tPmtNwPHzHwU-b5BCxdSLv5Rk2yzoGO-4-AKOlEXs19BRnfHsUR2igOA4CFlaPzQ2cWQBwo874HnPkFXh5J1WhnfMt670msx6YrFFd92K4spT~Hh5eAIA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'} alt="alumni" width={100} height={100}  />
                 </div>
@@ -60,16 +56,24 @@ const Nav = () => {
                     )}
                 </div>
                 <div className={`
-                ${bar ? '' : 'hidden'} md:block
-                absolute md:static
-                bg-slate-500/90 ${scroll ? 'md:bg-blue-900/50' : 'md:bg-transparent'}
-                top-full 
-                right-4 md:right-0 
-                p-3 md:p-0 md:px-2 
-                border md:border-none 
-                border-slate-100 
-                w-2/5 md:max-w-fit
-                z-50 `}>
+                    ${bar ? '' : 'hidden'} 
+                    md:block
+                    absolute md:static
+                    bg-slate-500/90 
+                    ${scroll ? 'md:bg-blue-900/50' : 'md:bg-transparent'}
+                    top-full 
+                    right-4 
+                    md:right-0 
+                    p-3 
+                    md:p-0 
+                    md:px-2 
+                    border 
+                    md:border-none 
+                    border-slate-100 
+                    w-2/5 
+                    md:max-w-fit
+                    md:rounded-md
+                    z-50 `}>
                     <div className="flex flex-col md:flex-row md:gap-6">
                         {navigation.map((item, index)=>(
                             <Link href={item.url} key={index}>  
