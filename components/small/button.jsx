@@ -6,15 +6,16 @@ const Button = ({
     variant = 'yellow', // yellow, blue, green
     className = '',
     onClick = null,
-    href = ''
+    href = '',
+    ...otherProps
 }) => {
     if (navigation){
-        <Link href={href} className={`bg-primary-${variant} px-4 py-2 rounded-md ${className}`} onClick={onClick}>
+        <Link href={href} className={`bg-primary-${variant} px-4 py-2 rounded-md ${className}`} onClick={onClick} {...otherProps}>
             {children}
         </Link>
     }
     return (
-        <button className={`${ variant === 'yellow' ? 'bg-primary-yellow' : variant === 'green' ? 'bg-primary-green' : 'bg-primary-blue' } px-4 py-2 rounded-md ${className}`} onClick={onClick}>
+        <button className={`${ variant === 'yellow' ? 'bg-primary-yellow' : variant === 'green' ? 'bg-primary-green' : 'bg-primary-blue' } px-4 py-2 rounded-md ${className}`} onClick={onClick} {...otherProps}>
             {children}
         </button>
     )

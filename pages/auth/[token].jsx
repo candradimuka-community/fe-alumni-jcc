@@ -4,6 +4,7 @@ import MainLayout from "../../layout/mainlayout";
 import Input from "../../components/small/input";
 import Button from "../../components/small/button";
 import { isEmail, isPhone } from "../../helpers/validation";
+import useApi from "../../hooks/API";
 
 const auth = () => {
     const [form, setForm] = useState({})
@@ -15,6 +16,14 @@ const auth = () => {
             'registerToken':token
         })
     },[token])
+    const register = async () => {
+        const res = useApi({
+            path:'register',
+            method:'POST',
+            data:form
+        })
+        console.log(res)
+    }
     return (
         <MainLayout>
             <div className="bg-slate-100 h-full">
@@ -117,6 +126,18 @@ const auth = () => {
                                 </div>
                                 <Button
                                     className="mt-2"
+                                    disabled={!(isEmail(form.email) &&
+                                                form.password?.length >= 8 &&
+                                                form.password === form.password_confirmation &&
+                                                isPhone(form.phone) &&
+                                                form.registerToken !== '' &&
+                                                form.firstName?.length > 0 &&
+                                                form.middleName?.length > 0  &&
+                                                form.lastName?.length > 0 &&
+                                                form.birthDate?.length > 0 &&
+                                                form.birthCity?.length > 0)
+                                    }
+                                    onClick={register}
                                     variant="blue">
                                     <p className="flex justify-between items-center gap-4 font-semibold">
                                         <span>Register</span>
