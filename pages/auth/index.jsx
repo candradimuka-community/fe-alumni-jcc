@@ -9,6 +9,7 @@ import { useUserContext } from "../../context/UserContext";
 const auth = () => {
     const { setLogin } = useUserContext()
     const [form, setForm] = useState({})
+    const [err, setErr] = useState('')
     const login = async () => {
         const {data, status} = await useApi({
             path:'login',
@@ -17,8 +18,9 @@ const auth = () => {
         })
         if(status === 200)
         {
-            console.log('masuk', data.data)
             setLogin({tokenData: data.token?.token, userData: data.data})
+        } else {
+            setErr(data)
         }
     }
     return (
@@ -48,6 +50,7 @@ const auth = () => {
                                     isValid={form.password?.length >= 8}
                                     message={"length is greater or same with 8"}
                                 />
+                                {err !== '' && <p className="text-red-500">{err}</p>}
                                 <Button
                                     className="mt-2"
                                     disabled={!(isEmail(form.email) &&
