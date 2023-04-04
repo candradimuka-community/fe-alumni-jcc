@@ -2,6 +2,7 @@ import {ChevronDoubleDownIcon, ChevronDoubleUpIcon} from '@heroicons/react/outli
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useUserContext } from '../../context/UserContext'
 
 
 const NavItem = () => {
@@ -15,26 +16,9 @@ const NavItem = () => {
 }
 
 const Nav = () => {
+    const {loggedIn, setLogout} = useUserContext()
     const [bar, setBar] = useState(false)
     const [scroll, setScroll] = useState(false)
-    const [navigation, setNavigation] = useState([
-        {
-            key: 'Home',
-            url: '/'
-        },
-        {
-            key: 'Member',
-            url: '/member'
-        },
-        {
-            key: 'About Us',
-            url: '/about-us'
-        },
-        {
-            key: 'Login',
-            url: '/auth'
-        }
-    ])
     useEffect(()=>{
         if(typeof window !== 'undefined'){
             window.onscroll = () =>{
@@ -75,13 +59,32 @@ const Nav = () => {
                     md:rounded-md
                     z-50 `}>
                     <div className="flex flex-col md:flex-row md:gap-6">
-                        {navigation.map((item, index)=>(
-                            <Link href={item.url} key={index}>  
+                        <Link href={'/'}>  
+                            <a className="text-white hover:text-black">
+                                Home
+                            </a>
+                        </Link>
+                        <Link href={'/member'}>  
+                            <a className="text-white hover:text-black">
+                                Member
+                            </a>
+                        </Link>
+                        <Link href={'/about-us'}>  
+                            <a className="text-white hover:text-black">
+                                About Us
+                            </a>
+                        </Link>
+                        {loggedIn ? (
+                            <p className="text-white hover:text-black" onClick={setLogout}>
+                                Logout
+                            </p>
+                        ):(
+                            <Link href={'/auth'}>  
                                 <a className="text-white hover:text-black">
-                                    {item.key}
+                                    Login
                                 </a>
                             </Link>
-                        ))}
+                        )}
                     </div>
                 </div>
             </div>

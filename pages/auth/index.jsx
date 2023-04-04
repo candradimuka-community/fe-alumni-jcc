@@ -3,10 +3,24 @@ import MainLayout from "../../layout/mainlayout";
 import Input from "../../components/small/input";
 import Button from "../../components/small/button";
 import { isEmail } from "../../helpers/validation";
+import useApi from '../../hooks/API'
+import { useUserContext } from "../../context/UserContext";
 
 const auth = () => {
+    const { setLogin } = useUserContext()
     const [form, setForm] = useState({})
-
+    const login = async () => {
+        const {data, status} = await useApi({
+            path:'login',
+            method:'POST',
+            data:form
+        })
+        if(status === 200)
+        {
+            console.log('masuk', data.data)
+            setLogin({tokenData: data.token?.token, userData: data.data})
+        }
+    }
     return (
         <MainLayout>
             <div className="bg-slate-100 h-screen">
@@ -36,6 +50,10 @@ const auth = () => {
                                 />
                                 <Button
                                     className="mt-2"
+                                    disabled={!(isEmail(form.email) &&
+                                                form.password?.length >= 8)
+                                    }
+                                    onClick={login}
                                     variant="blue">
                                     <p className="flex justify-between items-center gap-4 font-semibold">
                                         <span>Login</span>
