@@ -5,6 +5,7 @@ import Input from "../../components/small/input";
 import Button from "../../components/small/button";
 import { isEmail, isPhone } from "../../helpers/validation";
 import useApi from "../../hooks/API";
+import Swal from "sweetalert2";
 
 const auth = () => {
     const [form, setForm] = useState({})
@@ -17,12 +18,33 @@ const auth = () => {
         })
     },[token])
     const register = async () => {
-        const res = useApi({
+        const {data, status} = await useApi({
             path:'register',
             method:'POST',
             data:form
         })
-        console.log(res)
+        if(status === 201)
+        {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success Registered',
+                text: data.message
+            })
+            setInterval(()=>{
+                router.push('/')
+            },2000)
+        } else {
+            let text = ''
+            // data.errors.forEach(msg => {
+            //     text += `${msg.message}
+            //     `
+            // })
+            Swal.fire({
+                icon: 'error',
+                title: 'something error',
+                text
+            })
+        }
     }
     return (
         <MainLayout>
