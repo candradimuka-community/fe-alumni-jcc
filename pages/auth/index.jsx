@@ -5,11 +5,14 @@ import Button from "../../components/small/button";
 import { isEmail } from "../../helpers/validation";
 import useApi from '../../hooks/API'
 import { useUserContext } from "../../context/UserContext";
+import Modal from "../../components/medium/modal";
+import Swal from "sweetalert2";
 
 const auth = () => {
     const { setLogin } = useUserContext()
     const [form, setForm] = useState({})
     const [err, setErr] = useState('')
+    const [modal, setModal] = useState(false)
     const login = async () => {
         const {data, status} = await useApi({
             path:'login',
@@ -20,8 +23,23 @@ const auth = () => {
         {
             setLogin({tokenData: data.token?.token, userData: data.data})
         } else {
-            setErr(data)
+            setErr(data.message)
         }
+    }
+    const resendEmail = async () => {
+        const {data, status} = await useApi({
+            path:'resend-verification',
+            method:'POST',
+            data: {
+                email : form.verifEmail
+            }
+        })
+        Swal.fire({
+            title: "Information",
+            icon: "info",
+            text: data.message
+        })
+        setModal(false)
     }
     return (
         <MainLayout>
@@ -51,23 +69,48 @@ const auth = () => {
                                     message={"length is greater or same with 8"}
                                 />
                                 {err !== '' && <p className="text-red-500">{err}</p>}
-                                <Button
-                                    className="mt-2"
-                                    disabled={!(isEmail(form.email) &&
-                                                form.password?.length >= 8)
-                                    }
-                                    onClick={login}
-                                    variant="blue">
-                                    <p className="flex justify-between items-center gap-4 font-semibold">
-                                        <span>Login</span>
-                                    </p>
-                                </Button>
+                                <div className="flex flex-row justify-between mt-2">
+                                    <Button
+                                        disabled={!(isEmail(form.email) &&
+                                                    form.password?.length >= 8)
+                                        }
+                                        onClick={login}
+                                        variant="blue">
+                                        <p className="flex justify-between items-center gap-4 font-semibold">
+                                            <span>Login</span>
+                                        </p>
+                                    </Button>
+                                    <Button
+                                        onClick={()=>setModal(true)}
+                                        variant="yellow">
+                                        <p className="flex justify-between items-center gap-4 font-semibold">
+                                            <span>Resend Link</span>
+                                        </p>
+                                    </Button>
+                                </div>
                                 <p>Don't have an account? Get register link from our bot in Community Group</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <Modal 
+                open = {modal} 
+                setOpen = {setModal} 
+                title = "Resend Verification Email Link" 
+                buttonTitle = "Resend"
+                onSave={resendEmail}
+            >
+                <Input 
+                    label="Email"
+                    type="verifEmail"
+                    id="verifEmail"
+                    state={form}
+                    setState={setForm}
+                    isValid={isEmail(form.verifEmail)}
+                    message={"must valid email"}
+                />
+            </Modal>
         </MainLayout>
     )
 }
