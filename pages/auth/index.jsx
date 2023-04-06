@@ -23,7 +23,7 @@ const auth = () => {
         {
             setLogin({tokenData: data.token?.token, userData: data.data})
         } else {
-            setErr(data.message || data)
+            setErr(data.message ||  data.errors[0]?.message || data)
         }
     }
     const resendEmail = async () => {
