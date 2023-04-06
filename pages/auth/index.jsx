@@ -23,7 +23,7 @@ const auth = () => {
         {
             setLogin({tokenData: data.token?.token, userData: data.data})
         } else {
-            setErr(data.message)
+            setErr(data.message || data)
         }
     }
     const resendEmail = async () => {
@@ -37,7 +37,7 @@ const auth = () => {
         Swal.fire({
             title: "Information",
             icon: "info",
-            text: data.message
+            text: data.message || data?.errors[0]?.message
         })
         setModal(false)
     }
