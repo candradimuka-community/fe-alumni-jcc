@@ -10,9 +10,13 @@ const Button = ({
     ...otherProps
 }) => {
     if (navigation){
-        <Link href={href} className={`bg-primary-${variant} px-4 py-2 rounded-md ${className}`} onClick={onClick} {...otherProps}>
-            {children}
-        </Link>
+        return (
+            <Link href={href} onClick={onClick} {...otherProps}>
+                <a className={`bg-primary-${variant} px-4 py-2 rounded-md ${className}`} >
+                    {children}
+                </a>
+            </Link>
+        )
     }
     return (
         <button className={`${ variant === 'yellow' ? 'bg-primary-yellow' : variant === 'green' ? 'bg-primary-green' : 'bg-primary-blue' } px-4 py-2 rounded-md ${className}`} onClick={onClick} {...otherProps}>
