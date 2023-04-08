@@ -12,6 +12,11 @@ export function UserWrapper({ children }) {
     role:''
   })
 
+  const setLoginByCache = ({tokenData, userData}) => {
+    setToken(tokenData)
+    setUser({...userData})
+    setLoggedIn(true)
+  }
   const setLogin = ({tokenData, userData}) => {
     setToken(tokenData)
     setUser({...userData})
@@ -45,7 +50,7 @@ export function UserWrapper({ children }) {
       const userLs = window.localStorage.getItem('user')
       if(tokenLs && userLs)
       {
-        setLoggedIn({tokenData: tokenLs, userData: userLs})
+        setLoginByCache({tokenData: tokenLs, userData: JSON.parse(userLs)})
       }
     }
   }

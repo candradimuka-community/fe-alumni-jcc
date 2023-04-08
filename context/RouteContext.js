@@ -4,8 +4,19 @@ import {useRouter} from 'next/router'
 const RouteContext = createContext();
 
 export function RouteWrapper({ children }) {
-  const {loggedIn} = useUserContext()
-  const guestRoute = ['/auth','/auth/[token]']
+  const {loggedIn, user} = useUserContext()
+  const guestRoute = [
+    '/auth',
+    '/auth/[token]'
+  ]
+  const authRoute = [
+    '/dashboard',
+    '/dashboard/profile',
+    '/dashboard/member'
+  ]
+  const adminRoute = [
+    '/dashboard/member'
+  ]
   const router = useRouter()
   const {pathname} = router
   
@@ -14,7 +25,15 @@ export function RouteWrapper({ children }) {
     {
       router.push('/')
     }
-  }, [pathname, loggedIn])
+    if (authRoute.includes(pathname) && !loggedIn)
+    {
+      router.push('/auth')
+    }
+    if (adminRoute.includes(pathname) && (!loggedIn || user.role !== 'admin'))
+    {
+      router.push('/auth')
+    }
+  }, [pathname, loggedIn, user])
   return (
     <RouteContext.Provider value={{}}>
       {children}

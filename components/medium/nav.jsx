@@ -75,9 +75,16 @@ const Nav = () => {
                             </a>
                         </Link>
                         {loggedIn ? (
-                            <p className="text-white hover:text-black" onClick={setLogout}>
-                                Logout
-                            </p>
+                            <>
+                                <Link href={'/dashboard'}>  
+                                    <a className="text-white hover:text-black">
+                                        Dashboard
+                                    </a>
+                                </Link>
+                                <p className="text-white hover:text-black" onClick={setLogout}>
+                                    Logout
+                                </p>
+                            </>
                         ):(
                             <Link href={'/auth'}>  
                                 <a className="text-white hover:text-black">

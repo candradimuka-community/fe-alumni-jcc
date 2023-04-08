@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import SideBar from "../../components/medium/sidebar";
 import Header from "../../components/medium/header";
 
 const Dashboard = () => {
-  const [date, setDate] = useState(new Date())
 
-  setInterval(()=>{
-    setDate(new Date())
-  }, 1000)
   return (
     <div className="w-full min-h-screen grid grid-cols-5">
       {/* sidebar */}
