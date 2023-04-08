@@ -7,7 +7,7 @@ import { isEmail, isPhone } from "../../helpers/validation";
 import useApi from "../../hooks/API";
 import Swal from "sweetalert2";
 
-const auth = () => {
+const Auth = () => {
     const [form, setForm] = useState({})
     const router = useRouter()
     const { token } = router.query
@@ -16,8 +16,8 @@ const auth = () => {
             ...form,
             'registerToken':token
         })
-    },[token])
-    const register = async () => {
+    },[token, form])
+    const Register = async () => {
         const {data, status} = await useApi({
             path:'register',
             method:'POST',
@@ -159,7 +159,7 @@ const auth = () => {
                                                 form.birthDate?.length > 0 &&
                                                 form.birthCity?.length > 0)
                                     }
-                                    onClick={register}
+                                    onClick={Register}
                                     variant="blue">
                                     <p className="flex justify-between items-center gap-4 font-semibold">
                                         <span>Register</span>
@@ -174,4 +174,4 @@ const auth = () => {
     )
 }
 
-export default auth
+export default Auth

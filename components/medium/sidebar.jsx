@@ -35,14 +35,14 @@ const SideBar = () => {
       </div>
       <div className="flex flex-col justify-between h-4/5">
         <div className="flex flex-col space-y-1">
-          {dashRoute.map((route)=> {
+          {dashRoute.map((route, key)=> {
             if(route.admin && user.role !== 'admin') return <></>
             return (
-              <Button navigation={route.type === 'navigation'} href={`/dashboard${route.url}`} className="w-full block bg-yellow-200 hover:bg-yellow-300">{route.display}</Button>
+              <Button key={key + route.url} navigation={route.type === 'navigation'} href={`/dashboard${route.url}`} className="w-full block bg-yellow-200 hover:bg-yellow-300">{route.display}</Button>
               )
             })}
         </div>
-        <Button onClick={setLogout} className="w-full block bg-red-400 hover:bg-red-500 text-white">Logout</Button>
+        <Button variant="red" onClick={setLogout} className="w-full block hover:bg-red-500 text-white">Logout</Button>
 
       </div>
     </>

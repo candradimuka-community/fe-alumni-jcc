@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "../../layout/mainlayout";
 import { useRouter } from "next/router";
-const auth = () => {
+const Auth = () => {
     const [timer, setTimer] = useState(5)
     const router = useRouter()
     setInterval(()=> {
@@ -12,7 +12,7 @@ const auth = () => {
         {
             router.push('/auth')
         }
-    }, [timer])
+    }, [timer, router])
     return (
         <MainLayout>
             <div className="bg-slate-100 h-screen">
@@ -32,4 +32,4 @@ const auth = () => {
     )
 }
 
-export default auth
+export default Auth

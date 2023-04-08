@@ -19,7 +19,7 @@ const Button = ({
         )
     }
     return (
-        <button className={`${ variant === 'yellow' ? 'bg-primary-yellow' : variant === 'green' ? 'bg-primary-green' : 'bg-primary-blue' } px-4 py-2 rounded-md ${className}`} onClick={onClick} {...otherProps}>
+        <button className={`${ variant === 'yellow' ? 'bg-primary-yellow' : (variant === 'green' ? 'bg-primary-green' : (variant === 'red' ? 'bg-red-400' : 'bg-primary-blue')) } px-4 py-2 rounded-md ${className}`} onClick={onClick} {...otherProps}>
             {children}
         </button>
     )

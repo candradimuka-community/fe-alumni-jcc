@@ -3,20 +3,20 @@ import MainLayout from "../../layout/mainlayout";
 import Input from "../../components/small/input";
 import Button from "../../components/small/button";
 import { isEmail } from "../../helpers/validation";
-import useApi from '../../hooks/API'
+import useApi from "../../hooks/API"
 import { useUserContext } from "../../context/UserContext";
 import Modal from "../../components/medium/modal";
 import Swal from "sweetalert2";
 
-const auth = () => {
+const Auth = () => {
     const { setLogin } = useUserContext()
     const [form, setForm] = useState({})
-    const [err, setErr] = useState('')
+    const [err, setErr] = useState("")
     const [modal, setModal] = useState(false)
-    const login = async () => {
+    const Login = async () => {
         const {data, status} = await useApi({
-            path:'login',
-            method:'POST',
+            path:"login",
+            method:"POST",
             data:form
         })
         if(status === 200)
@@ -26,10 +26,10 @@ const auth = () => {
             setErr(data.message || data)
         }
     }
-    const resendEmail = async () => {
+    const ResendEmail = async () => {
         const {data, status} = await useApi({
-            path:'resend-verification',
-            method:'POST',
+            path:"resend-verification",
+            method:"POST",
             data: {
                 email : form.verifEmail
             }
@@ -68,13 +68,13 @@ const auth = () => {
                                     isValid={form.password?.length >= 8}
                                     message={"length is greater or same with 8"}
                                 />
-                                {err !== '' && <p className="text-red-500">{err}</p>}
+                                {err !== "" && <p className="text-red-500">{err}</p>}
                                 <div className="flex flex-row justify-between mt-2">
                                     <Button
                                         disabled={!(isEmail(form.email) &&
                                                     form.password?.length >= 8)
                                         }
-                                        onClick={login}
+                                        onClick={Login}
                                         variant="blue">
                                         <p className="flex justify-between items-center gap-4 font-semibold">
                                             <span>Login</span>
@@ -88,7 +88,7 @@ const auth = () => {
                                         </p>
                                     </Button>
                                 </div>
-                                <p>Don't have an account? Get register link from our bot in Community Group</p>
+                                <p>Dont have an account? Get register link from our bot in Community Group</p>
                             </div>
                         </div>
                     </div>
@@ -99,7 +99,7 @@ const auth = () => {
                 setOpen = {setModal} 
                 title = "Resend Verification Email Link" 
                 buttonTitle = "Resend"
-                onSave={resendEmail}
+                onSave={ResendEmail}
             >
                 <Input 
                     label="Email"
@@ -115,4 +115,4 @@ const auth = () => {
     )
 }
 
-export default auth
+export default Auth
