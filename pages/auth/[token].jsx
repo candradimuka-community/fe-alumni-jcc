@@ -11,12 +11,15 @@ const Auth = () => {
     const [form, setForm] = useState({})
     const router = useRouter()
     const { token } = router.query
-    useEffect(()=>{
+    const setToken = (t) => {
         setForm({
             ...form,
-            'registerToken':token
+            'registerToken':t
         })
-    },[token, form])
+    } 
+    useEffect(()=>{
+        setToken(token)
+    },[token])
     const Register = async () => {
         const {data, status} = await useApi({
             path:'register',
