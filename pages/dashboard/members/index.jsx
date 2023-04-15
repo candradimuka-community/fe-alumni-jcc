@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../../layout/dashboardLayout";
-import Input from "../../../components/small/input";
 import Swal from "sweetalert2";
 import { useUserContext } from "../../../context/UserContext";
 import useApi from "../../../hooks/API";
 import DataTable from "react-data-table-component";
 import Button from "../../../components/small/button";
+import Modal from "../../../components/medium/modal";
+import ProfileComp from "../../../components/large/profile";
 
-const Profile = () => {
+const Members = () => {
     const { token } = useUserContext()
     const [dataSet, setDataSet] = useState([])
     const [loading, setLoading] = useState(false)
+    const [modal, setModal] = useState(false)
     const GetMember = async() => {
         setLoading(true)
         const {data, status} = await useApi({
@@ -25,12 +27,11 @@ const Profile = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'something error',
-                text
             })
         }
         setLoading(false)
     }
-    console.log(dataSet)
+    const [form, setForm] = useState({})
     useEffect(()=>{
         GetMember()
     }, [])
@@ -71,7 +72,10 @@ const Profile = () => {
                             name: 'Action',
                             selector: row => {
                                 return (
-                                    <Button>
+                                    <Button onClick={()=>{
+                                        setForm(row)
+                                        setModal(true)
+                                    }}>
                                         Lihat
                                     </Button>
                                 )
@@ -80,7 +84,15 @@ const Profile = () => {
                     ]}
                 />
             </div>
+        <Modal 
+            open = {modal} 
+            setOpen = {setModal} 
+            title = "Lihat Profil Member"
+            withButton = {false}
+        >
+            <ProfileComp form={form} />
+        </Modal>
         </DashboardLayout>
     )
 }
-export default Profile
+export default Members
