@@ -29,10 +29,10 @@ export function RouteWrapper({ children }) {
     {
       router.push('/auth')
     }
-    if (adminRoute.includes(pathname) && (!loggedIn || user.role !== 'admin'))
-    {
-      router.push('/auth')
-    }
+    // if (adminRoute.includes(pathname) && (!loggedIn || user.role !== 'admin'))
+    // {
+    //   router.push('/auth')
+    // }
   }, [pathname, loggedIn, user])
   return (
     <RouteContext.Provider value={{}}>

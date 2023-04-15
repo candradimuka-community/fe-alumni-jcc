@@ -11,6 +11,11 @@ const Input = ({
     state={},
     ...otherProps
 }) => {
+    if(type === "blank"){
+        return (
+            <div className="h-[66px]"></div>
+        )
+    }
     return (
         <div 
             className="flex flex-col my-2">
