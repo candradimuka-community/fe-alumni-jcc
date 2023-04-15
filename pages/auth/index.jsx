@@ -13,7 +13,9 @@ const Auth = () => {
     const [form, setForm] = useState({})
     const [err, setErr] = useState("")
     const [modal, setModal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const Login = async () => {
+        setLoading(true)
         const {data, status} = await useApi({
             path:"login",
             method:"POST",
@@ -25,8 +27,10 @@ const Auth = () => {
         } else {
             setErr(data.message || data)
         }
+        setLoading(false)
     }
     const ResendEmail = async () => {
+        setLoading(true)
         const {data, status} = await useApi({
             path:"resend-verification",
             method:"POST",
@@ -40,6 +44,7 @@ const Auth = () => {
             text: data.message || data?.errors[0]?.message
         })
         setModal(false)
+        setLoading(false)
     }
     return (
         <MainLayout>
@@ -75,6 +80,7 @@ const Auth = () => {
                                                     form.password?.length >= 8)
                                         }
                                         onClick={Login}
+                                        loading={loading}
                                         variant="blue">
                                         <p className="flex justify-between items-center gap-4 font-semibold">
                                             <span>Login</span>
@@ -82,6 +88,7 @@ const Auth = () => {
                                     </Button>
                                     <Button
                                         onClick={()=>setModal(true)}
+                                        loading={loading}
                                         variant="yellow">
                                         <p className="flex justify-between items-center gap-4 font-semibold">
                                             <span>Resend Link</span>

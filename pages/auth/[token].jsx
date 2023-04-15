@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 
 const Auth = () => {
     const [form, setForm] = useState({})
+    const [loading, setLoading] = useState(false)
     const router = useRouter()
     const { token } = router.query
     const setToken = (t) => {
@@ -21,6 +22,7 @@ const Auth = () => {
         setToken(token)
     },[token])
     const Register = async () => {
+        setLoading(true)
         const {data, status} = await useApi({
             path:'register',
             method:'POST',
@@ -48,6 +50,7 @@ const Auth = () => {
                 text
             })
         }
+        setLoading(false)
     }
     return (
         <MainLayout>
@@ -163,6 +166,7 @@ const Auth = () => {
                                                 form.birthCity?.length > 0)
                                     }
                                     onClick={Register}
+                                    loading={loading}
                                     variant="blue">
                                     <p className="flex justify-between items-center gap-4 font-semibold">
                                         <span>Register</span>
