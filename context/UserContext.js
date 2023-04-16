@@ -5,13 +5,14 @@ import useApi from '../hooks/API';
 const UserContext = createContext();
 
 export function UserWrapper({ children }) {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(true)
   const [token, setToken] = useState(null)
   const [user, setUser] = useState({
     id:'',
     name:'',
     role:''
   })
+  const [loading, setLoading] = useState(false)
 
   const setLoginByCache = ({tokenData, userData}) => {
     setToken(tokenData)
@@ -42,6 +43,7 @@ export function UserWrapper({ children }) {
     }
   }
   const GetUser = async (token) => {
+    setLoading(true)
     const {data, status} = await useApi({
       path: 'profile',
       method: 'GET',
@@ -53,6 +55,7 @@ export function UserWrapper({ children }) {
     } else {
       setLogout()
     }
+    setLoading(false)
   }
 
   const checkUser = () => {
@@ -62,6 +65,8 @@ export function UserWrapper({ children }) {
       if(tokenLs)
       {
         GetUser(tokenLs)
+      } else {
+        setLoading(false)
       }
     }
   }
@@ -72,9 +77,11 @@ export function UserWrapper({ children }) {
     <UserContext.Provider value={{
       setLogin,
       setLogout,
+      setLoading,
       user,
       token,
-      loggedIn
+      loggedIn,
+      loading
     }}>
       {children}
     </UserContext.Provider>
