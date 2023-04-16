@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import Router from 'next/router'
+import useApi from '../hooks/API';
 
 const UserContext = createContext();
 
@@ -24,7 +25,6 @@ export function UserWrapper({ children }) {
     if(typeof window !== undefined)
     {
       window.localStorage.setItem('token', tokenData)
-      window.localStorage.setItem('user', JSON.stringify(userData))
     }
     Router.push('/')
   }
@@ -39,7 +39,19 @@ export function UserWrapper({ children }) {
     if(typeof window !== undefined)
     {
       window.localStorage.removeItem('token')
-      window.localStorage.removeItem('user')
+    }
+  }
+  const GetUser = async (token) => {
+    const {data, status} = await useApi({
+      path: 'profile',
+      method: 'GET',
+      token
+    })
+    if(status === 200)
+    {
+      setLoginByCache({tokenData: token, userData: data.data})
+    } else {
+      setLogout()
     }
   }
 
@@ -47,10 +59,9 @@ export function UserWrapper({ children }) {
     if (typeof window !== undefined)
     {
       const tokenLs = window.localStorage.getItem('token')
-      const userLs = window.localStorage.getItem('user')
-      if(tokenLs && userLs)
+      if(tokenLs)
       {
-        setLoginByCache({tokenData: tokenLs, userData: JSON.parse(userLs)})
+        GetUser(tokenLs)
       }
     }
   }
